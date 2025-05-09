@@ -56,5 +56,14 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Event.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\EventChange.sql" />
+    <Build Include="Tables\Participant.sql" />
+    <Build Include="Tables\Registration.sql" />
   </ItemGroup>
 </Project>

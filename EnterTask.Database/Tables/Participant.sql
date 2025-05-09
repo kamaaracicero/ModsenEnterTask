@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[Participant]
+(
+	[Id] INT NOT NULL IDENTITY(1,1),
+	[Name] NVARCHAR(100) NOT NULL,
+	[Surname] NVARCHAR(100) NOT NULL,
+	[DateOfBirth] DATE NOT NULL,
+	[Email] NVARCHAR(500) NOT NULL,
+
+	CONSTRAINT pk_Participant PRIMARY KEY ([Id]),
+)

@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterTask.WebAPI", "EnterTask.WebAPI\EnterTask.WebAPI.csproj", "{87967A26-C352-44F7-B8A0-5D2EF7879954}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EnterTask.Database", "EnterTask.Database\EnterTask.Database.sqlproj", "{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterTask.Data", "EnterTask.Data\EnterTask.Data.csproj", "{D3436A81-B032-41F4-A91D-39275EBAF422}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,16 @@ Global
 		{87967A26-C352-44F7-B8A0-5D2EF7879954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87967A26-C352-44F7-B8A0-5D2EF7879954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87967A26-C352-44F7-B8A0-5D2EF7879954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B0C2749-B37A-48BC-86B2-C57BDBAC6388}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D3436A81-B032-41F4-A91D-39275EBAF422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3436A81-B032-41F4-A91D-39275EBAF422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3436A81-B032-41F4-A91D-39275EBAF422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3436A81-B032-41F4-A91D-39275EBAF422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

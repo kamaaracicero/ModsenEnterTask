@@ -2,16 +2,6 @@
 {
     public class Participant : IDataEntity
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Surname { get; set; }
-
-        public DateOnly DateOfBirth { get; set; }
-
-        public string Email { get; set; }
-
         private Participant(int id, string name, string surname, DateOnly dateOfBirth, string email)
         {
             this.Id = id;
@@ -28,6 +18,18 @@
         public Participant()
             : this(string.Empty, string.Empty, new DateOnly(3000, 1, 1), string.Empty)
         { }
+
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public DateOnly DateOfBirth { get; set; }
+
+        public string Email { get; set; }
+
+        public ICollection<Registration>? Registrations { get; set; }
 
         public void Update(object? obj)
         {

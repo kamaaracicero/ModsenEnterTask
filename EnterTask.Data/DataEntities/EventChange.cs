@@ -23,6 +23,8 @@
 
         public string Message { get; set; }
 
+        public Event? Event { get; set; }
+
         public void Update(object? obj)
         {
             if (obj is null or not EventChange)

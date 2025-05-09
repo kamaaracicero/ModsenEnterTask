@@ -19,6 +19,10 @@
 
         public DateOnly Date { get; set; }
 
+        public Participant? Participant { get; set; }
+
+        public Event? Event { get; set; }
+
         public void Update(object? obj)
         {
             if (obj is null or not Registration)

@@ -38,6 +38,10 @@
 
         public string? Picture { get; set; }
 
+        public ICollection<Registration>? Registrations { get; set; }
+
+        public ICollection<EventChange>? Changes { get; set; }
+
         public void Update(object? obj)
         {
             if (obj is null or not Event)

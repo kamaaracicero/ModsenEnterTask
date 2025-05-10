@@ -1,5 +1,6 @@
 ﻿using EnterTask.Data.DataEntities;
 using EnterTask.Data.Repository;
+using EnterTask.Logic.Search;
 
 namespace EnterTask.Logic.Repositories
 {
@@ -17,5 +18,8 @@ namespace EnterTask.Logic.Repositories
         Task<RepositoryResult> UpdateAsync(TEntity entity);
 
         Task<RepositoryResult<TEntity?>> GetById(int id);
+
+        Task<RepositoryResult<IEnumerable<TEntity>>> PerformSearchAsync<TParam>
+            (ISearch<TEntity, TParam> search, TParam param);
     }
 }

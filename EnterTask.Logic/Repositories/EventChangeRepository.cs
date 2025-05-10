@@ -2,6 +2,7 @@
 using EnterTask.Data.Exceptions;
 using EnterTask.Data.Repository;
 using EnterTask.DataAccess.DbContexts;
+using EnterTask.Logic.Search;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories
@@ -132,6 +133,22 @@ namespace EnterTask.Logic.Repositories
             catch (Exception ex)
             {
                 return new RepositoryResult<bool>(false, false) {
+                    Errors = new List<Exception>() { ex }
+                };
+            }
+        }
+
+        public async Task<RepositoryResult<IEnumerable<EventChange>>> PerformSearchAsync<TParam>
+            (ISearch<EventChange, TParam> search, TParam param)
+        {
+            try
+            {
+                var res = await search.SearchAsync(_dbContext.EventsChange, param);
+                return new RepositoryResult<IEnumerable<EventChange>>(res, true);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryResult<IEnumerable<EventChange>>([], false) {
                     Errors = new List<Exception>() { ex }
                 };
             }

@@ -2,6 +2,7 @@
 using EnterTask.Data.Exceptions;
 using EnterTask.Data.Repository;
 using EnterTask.DataAccess.DbContexts;
+using EnterTask.Logic.Search;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories
@@ -70,7 +71,7 @@ namespace EnterTask.Logic.Repositories
         {
             return new RepositoryResult<Registration?>(null, false) {
                 Errors = new List<Exception>() {
-                    new RepositoryException(this, "Default search by id is not available for link element")
+                    new RepositoryException(this, "Default search by id is not available for link element!")
                 }
             };
         }
@@ -125,6 +126,22 @@ namespace EnterTask.Logic.Repositories
             catch (Exception ex)
             {
                 return new RepositoryResult<bool>(false, false) {
+                    Errors = new List<Exception>() { ex }
+                };
+            }
+        }
+
+        public async Task<RepositoryResult<IEnumerable<Registration>>> PerformSearchAsync<TParam>
+            (ISearch<Registration, TParam> search, TParam param)
+        {
+            try
+            {
+                var res = await search.SearchAsync(_dbContext.Registrations, param);
+                return new RepositoryResult<IEnumerable<Registration>>(res, true);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryResult<IEnumerable<Registration>>([], false) {
                     Errors = new List<Exception>() { ex }
                 };
             }

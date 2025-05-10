@@ -2,6 +2,6 @@
 {
     public interface ISearch<TEntity, TParam>
     {
-        IEnumerable<TEntity> Search(IEnumerable<TEntity> entities, TParam param);
+        Task<IEnumerable<TEntity>> SearchAsync(IQueryable<TEntity> entities, TParam param);
     }
 }

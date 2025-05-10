@@ -9,9 +9,7 @@ namespace EnterTask.Logic.Search
         {
             var normalizedParam = param.ToLower().Trim();
             if (string.IsNullOrEmpty(normalizedParam))
-            {
                 return [];
-            }
 
             var res = await entities
                 .AsNoTracking()

@@ -29,7 +29,7 @@
 
         public string Email { get; set; }
 
-        public ICollection<Registration>? Registrations { get; set; }
+        public ICollection<Registration> Registrations { get; set; } = [];
 
         public void Update(object? obj)
         {

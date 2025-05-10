@@ -19,9 +19,9 @@
 
         public DateOnly Date { get; set; }
 
-        public Participant? Participant { get; set; }
+        public Participant Participant { get; set; } = null!;
 
-        public Event? Event { get; set; }
+        public Event Event { get; set; } = null!;
 
         public void Update(object? obj)
         {

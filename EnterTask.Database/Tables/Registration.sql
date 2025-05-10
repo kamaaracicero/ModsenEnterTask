@@ -5,6 +5,7 @@
 	[Date] DATE NOT NULL,
 
 	CONSTRAINT pk_Registration PRIMARY KEY ([ParticipantId], [EventId]),
+	CONSTRAINT un_Registration UNIQUE ([ParticipantId], [EventId]),
 
 	CONSTRAINT fk_Registration_Participant_Id FOREIGN KEY ([ParticipantId])
 		REFERENCES [dbo].[Participant]([Id])

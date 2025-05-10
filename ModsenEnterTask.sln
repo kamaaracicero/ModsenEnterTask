@@ -9,6 +9,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EnterTask.Database", "Enter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterTask.Data", "EnterTask.Data\EnterTask.Data.csproj", "{D3436A81-B032-41F4-A91D-39275EBAF422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterTask.DataAccess", "EnterTask.DataAccess\EnterTask.DataAccess.csproj", "{4E24928A-30EF-45D1-BB36-4E4899AE21FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterTask.Logic", "EnterTask.Logic\EnterTask.Logic.csproj", "{19247C9C-B852-4410-90EE-F6E56A2D1E52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,14 @@ Global
 		{D3436A81-B032-41F4-A91D-39275EBAF422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3436A81-B032-41F4-A91D-39275EBAF422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3436A81-B032-41F4-A91D-39275EBAF422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E24928A-30EF-45D1-BB36-4E4899AE21FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E24928A-30EF-45D1-BB36-4E4899AE21FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E24928A-30EF-45D1-BB36-4E4899AE21FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E24928A-30EF-45D1-BB36-4E4899AE21FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19247C9C-B852-4410-90EE-F6E56A2D1E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19247C9C-B852-4410-90EE-F6E56A2D1E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19247C9C-B852-4410-90EE-F6E56A2D1E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19247C9C-B852-4410-90EE-F6E56A2D1E52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

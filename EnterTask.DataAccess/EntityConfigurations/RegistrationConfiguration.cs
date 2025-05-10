@@ -15,6 +15,9 @@ namespace EnterTask.DataAccess.EntityConfigurations
             builder.Property(r => r.Date)
                 .IsRequired();
 
+            builder.HasIndex(r => new { r.EventId, r.ParticipantId })
+                .IsUnique();
+
             builder.HasOne(r => r.Participant)
                 .WithMany(p => p.Registrations)
                 .HasForeignKey(r => r.ParticipantId)

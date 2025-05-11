@@ -1,27 +1,38 @@
-﻿namespace EnterTask.Data.DataEntities
+﻿using System;
+
+namespace EnterTask.Data.DataEntities
 {
     public class EventChange : IDataEntity
     {
-        private EventChange(int id, int eventId, string message)
+        private EventChange(int id, int eventId, DateTime date, string paramName, string? oldValue, string? newValue)
         {
             this.Id = id;
             this.EventId = eventId;
-            this.Message = message;
+            this.Date = date;
+            this.ParamName = paramName;
+            this.OldValue = oldValue;
+            this.NewValue = newValue;
         }
 
-        public EventChange(int eventId, string message)
-            : this(0, eventId, message)
+        public EventChange(int eventId, DateTime date, string paramName, string? oldValue, string? newValue)
+            : this(0, eventId, new DateTime(2000, 1, 1), string.Empty, null, null)
         { }
 
         public EventChange()
-            : this(0, string.Empty)
+            : this(0, new DateTime(2000, 1, 1), string.Empty, null, null)
         { }
 
         public int Id { get; set; }
 
         public int EventId { get; set; }
 
-        public string Message { get; set; }
+        public DateTime Date { get; set; }
+
+        public string ParamName { get; set; }
+
+        public string? OldValue { get; set; }
+
+        public string? NewValue { get; set; }
 
         public Event Event { get; set; } = null!;
 
@@ -31,13 +42,20 @@
                 return;
 
             var temp = obj as EventChange;
-            if (temp != null)
-                this.Message = temp.Message;
+            if (temp != null) {
+                this.Date = temp.Date;
+                this.ParamName = temp.ParamName;
+                this.OldValue = temp.OldValue;
+                this.NewValue = temp.NewValue;
+            }
         }
 
         public override int GetHashCode() => Id
             ^ EventId
-            ^ Message.GetHashCode();
+            ^ Date.GetHashCode()
+            ^ ParamName.GetHashCode()
+            ^ (OldValue == null ? 0 : OldValue.GetHashCode())
+            ^ (NewValue == null ? 0 : NewValue.GetHashCode());
 
         public override bool Equals(object? obj)
         {
@@ -47,6 +65,6 @@
             return this.GetHashCode() == obj.GetHashCode();
         }
 
-        public override string ToString() => $"EventChange: {Message}";
+        public override string ToString() => $"EventChange: {ParamName}";
     }
 }

@@ -2,8 +2,10 @@
 using EnterTask.Logic.Filter;
 using EnterTask.Logic.Filter.Event;
 using EnterTask.Logic.Repositories;
+using EnterTask.Logic.Repositories.PaggingRepositories;
 using EnterTask.Logic.Repositories.Related;
 using EnterTask.Logic.Repositories.Related.Resolvers;
+using EnterTask.Logic.Repositories.Tracking;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +29,11 @@ namespace EnterTask.Logic
 
             services.AddScoped<IRelatedRepository<Event>, EventRelatedRepository>();
             services.AddScoped<IRelatedRepository<Participant>, ParticipantRelatedRepository>();
+
+            services.AddScoped<IPaggingRepository<Event>, EventPaggingRepository>();
+            services.AddScoped<IPaggingRepository<Participant>, ParticipantPaggingRepository>();
+
+            services.AddScoped<ITrackingRepository<Event, EventChange>, EventChangeTrackingRepository>();
 
             return services;
         }

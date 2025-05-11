@@ -16,8 +16,18 @@ namespace EnterTask.DataAccess.EntityConfigurations
             builder.Property(e => e.EventId)
                 .IsRequired();
 
-            builder.Property(e => e.Message)
+            builder.Property(e => e.Date)
                 .IsRequired();
+
+            builder.Property(e => e.ParamName)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(e => e.OldValue)
+                .HasMaxLength(300);
+
+            builder.Property(e => e.NewValue)
+                .HasMaxLength(300);
 
             builder.HasOne(e => e.Event)
                 .WithMany(ev => ev.Changes)

@@ -2,7 +2,10 @@
 (
 	[Id] INT NOT NULL IDENTITY(1,1),
 	[EventId] INT NOT NULL,
-	[Message] NVARCHAR(MAX) NOT NULL,
+	[Date] DATETIME NOT NULL,
+	[ParamName] NVARCHAR(100) NOT NULL,
+	[OldValue] NVARCHAR(300) NULL,
+	[NewValue] NVARCHAR(300) NULL,
 
 	CONSTRAINT pk_EventChange PRIMARY KEY ([Id]),
 

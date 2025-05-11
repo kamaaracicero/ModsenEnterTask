@@ -6,7 +6,7 @@
 
 	CONSTRAINT pk_EventChange PRIMARY KEY ([Id]),
 
-	CONSTRAINT fk_EventChange_Event_Id FOREIGN KEY ([Id])
+	CONSTRAINT fk_EventChange_Event_Id FOREIGN KEY ([EventId])
 		REFERENCES [dbo].[Event] ([Id])
 		ON DELETE CASCADE
 )

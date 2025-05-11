@@ -15,7 +15,7 @@ namespace EnterTask.Data.DataEntities
         }
 
         public EventChange(int eventId, DateTime date, string paramName, string? oldValue, string? newValue)
-            : this(0, eventId, new DateTime(2000, 1, 1), string.Empty, null, null)
+            : this(0, eventId, date, paramName, oldValue, newValue)
         { }
 
         public EventChange()

@@ -2,7 +2,7 @@
 {
     public class EventPageDTO
     {
-        IEnumerable<EventDTO> Events { get; set; } = null!;
+        public IEnumerable<EventDTO>? Events { get; set; } = null!;
 
         public int Page { get; set; }
 

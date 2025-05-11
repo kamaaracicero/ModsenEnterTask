@@ -17,7 +17,7 @@ namespace EnterTask.Logic.Repositories
 
         Task<RepositoryResult> UpdateAsync(TEntity entity);
 
-        Task<RepositoryResult<TEntity?>> GetById(int id);
+        Task<RepositoryResult<TEntity?>> GetByIdAsync(int id);
 
         Task<RepositoryResult<IEnumerable<TEntity>>> PerformSearchAsync<TParam>
             (ISearch<TEntity, TParam> search, TParam param);

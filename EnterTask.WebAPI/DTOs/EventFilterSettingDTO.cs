@@ -2,12 +2,12 @@
 {
     public class EventFilterSettingDTO
     {
-        public DateTime? EventStartMin { get; set; }
+        public DateTime? EventStartMin { get; set; } = null!;
 
-        public DateTime? EventStartMax { get; set; }
+        public DateTime? EventStartMax { get; set; } = null!;
 
-        public string Place { get; set; } = null!;
+        public string? Place { get; set; } = null!;
 
-        public string Category { get; set; } = null!;
+        public string? Category { get; set; } = null!;
     }
 }

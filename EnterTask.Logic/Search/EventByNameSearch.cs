@@ -13,6 +13,7 @@ namespace EnterTask.Logic.Search
 
             var res = await entities
                 .AsNoTracking()
+                // Тут валится трансляция
                 .Where(e => e.Name.StartsWith(normalizedParam, StringComparison.OrdinalIgnoreCase))
                 .ToListAsync();
 

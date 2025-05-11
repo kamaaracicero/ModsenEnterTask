@@ -1,6 +1,11 @@
 
 using EnterTask.DataAccess;
 using EnterTask.Logic;
+using EnterTask.WebAPI.DTOs;
+using EnterTask.WebAPI.Mappers;
+using EnterTask.WebAPI.Validation;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace EnterTask.WebAPI
 {
@@ -12,6 +17,13 @@ namespace EnterTask.WebAPI
 
             builder.Services.AddLogic(builder.Configuration);
             builder.Services.AddDataAccess(builder.Configuration);
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+            builder.Services.AddScoped<IValidator<EventDTO>, EventDTOValidator>();
+            builder.Services.AddScoped<IValidator<ParticipantDTO>, ParticipantDTOValidator>();
+            builder.Services.AddScoped<IValidator<RegistrationDTO>, RegistrationDTOValidator>();
+
+            builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();

@@ -5,6 +5,7 @@ namespace EnterTask.Logic.Search
 {
     internal class EventByNameSearchWithLike : ISearch<Event, string>
     {
+        // Поиск с помощью LIKE зависит от настроек коллации базы данных
         public async Task<IEnumerable<Event>> SearchAsync(IQueryable<Event> entities, string param)
         {
             var normalizedParam = param.ToLower().Trim();

@@ -8,7 +8,7 @@
 
         public string Surname { get; set; } = null!;
 
-        public DateOnly? DateOfBirth { get; set; }
+        public DateOnly DateOfBirth { get; set; }
 
         public string Email { get; set; } = null!;
     }

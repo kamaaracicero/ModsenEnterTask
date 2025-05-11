@@ -19,6 +19,8 @@ namespace EnterTask.Logic.Repositories.Tracking
         {
             try
             {
+                // Если до этого entity был получен с помощью метода репозитория GetById,
+                // здесь сравнение будет происходить между двумя экземплярами одного и того же объекта
                 var original = await _mainDbContext.Events.FirstOrDefaultAsync(e => e.Id == entity.Id);
 
                 if (original != null) {
@@ -57,7 +59,10 @@ namespace EnterTask.Logic.Repositories.Tracking
             CheckForPlaceUpdate(changes, original, update);
             CheckForCategoryUpdate(changes, original, update);
             CheckForMaxPeopleCountUpdate(changes, original, update);
-            CheckForPictureUpdate(changes, original, update);
+            // Изменение картинки не отслеживается в связи с методом контроллера. Нужно переделать
+            // Тем более пока неизвесто, нужно ли это вообще отслеживать, возможно значения будут
+            // содержать не ссылку на картинку, а саму картинку, переведенную в строку.
+            // Тогда размер базы данных будет очень быстро разрастаться, из за хранения всех изменений картинки
 
             return changes;
         }
@@ -141,20 +146,6 @@ namespace EnterTask.Logic.Repositories.Tracking
                     nameof(update.MaxPeopleCount),
                     original.MaxPeopleCount.ToString(),
                     update.MaxPeopleCount.ToString());
-
-                changes.Add(change);
-            }
-        }
-
-        private void CheckForPictureUpdate(ICollection<EventChange> changes, Event original, Event update)
-        {
-            if (string.Compare(original.Picture, update.Picture, StringComparison.OrdinalIgnoreCase) != 0) {
-                var change = new EventChange(
-                    update.Id,
-                    DateTime.Now,
-                    nameof(update.Picture),
-                    original.Picture,
-                    update.Picture);
 
                 changes.Add(change);
             }

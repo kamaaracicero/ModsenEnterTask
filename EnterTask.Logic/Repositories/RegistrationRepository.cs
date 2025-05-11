@@ -67,7 +67,7 @@ namespace EnterTask.Logic.Repositories
             }
         }
 
-        public async Task<RepositoryResult<Registration?>> GetById(int id)
+        public async Task<RepositoryResult<Registration?>> GetByIdAsync(int id)
         {
             return new RepositoryResult<Registration?>(null, false) {
                 Errors = new List<Exception>() {

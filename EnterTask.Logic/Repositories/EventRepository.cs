@@ -51,7 +51,7 @@ namespace EnterTask.Logic.Repositories
             }
         }
 
-        public async Task<RepositoryResult<Event?>> GetById(int id)
+        public async Task<RepositoryResult<Event?>> GetByIdAsync(int id)
         {
             try
             {

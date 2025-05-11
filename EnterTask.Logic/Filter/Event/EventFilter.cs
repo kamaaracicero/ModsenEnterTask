@@ -8,41 +8,41 @@ namespace EnterTask.Logic.Filter.Event
     {
         public IEnumerable<EventData> Filter(IEnumerable<EventData> entities, IFilterSettings settings)
         {
-            if (settings is null or not EventFilterSettings)
+            if (settings is not EventFilterSettings temp)
                 throw new ArgumentException("Error format filter setting", nameof(settings));
 
-            var temp = settings as EventFilterSettings;
-            if (temp != null) {
-                FilterByDate(entities, temp);
-                FilterByPlace(entities, temp);
-                FilterByCategory(entities, temp);
+            entities = FilterByDate(entities, temp);
+            entities = FilterByPlace(entities, temp);
+            entities = FilterByCategory(entities, temp);
 
-                return entities;
-            }
-            else {
-                return entities;
-            }
+            return entities;
         }
 
-        private void FilterByDate(IEnumerable<EventData> entities, EventFilterSettings settings)
+        private IEnumerable<EventData> FilterByDate(IEnumerable<EventData> entities, EventFilterSettings settings)
         {
             if (settings.EventStartMin.HasValue)
                 entities = entities.Where(e => e.Start >= settings.EventStartMin.Value);
 
             if (settings.EventStartMax.HasValue)
                 entities = entities.Where(e => e.Start <= settings.EventStartMax.Value);
+
+            return entities;
         }
 
-        private void FilterByPlace(IEnumerable<EventData> entities, EventFilterSettings settings)
+        private IEnumerable<EventData> FilterByPlace(IEnumerable<EventData> entities, EventFilterSettings settings)
         {
-            if (!string.IsNullOrEmpty(settings.Place))
+            if (!string.IsNullOrWhiteSpace(settings.Place))
                 entities = entities.Where(e => e.Place.StartsWith(settings.Place, StringComparison.OrdinalIgnoreCase));
+
+            return entities;
         }
 
-        private void FilterByCategory(IEnumerable<EventData> entities, EventFilterSettings settings)
+        private IEnumerable<EventData> FilterByCategory(IEnumerable<EventData> entities, EventFilterSettings settings)
         {
-            if (!string.IsNullOrEmpty(settings.Category))
+            if (!string.IsNullOrWhiteSpace(settings.Category))
                 entities = entities.Where(e => e.Category.StartsWith(settings.Category, StringComparison.OrdinalIgnoreCase));
+
+            return entities;
         }
     }
 }

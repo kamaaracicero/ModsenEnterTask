@@ -19,7 +19,7 @@ namespace EnterTask.Logic.Repositories.PaggingRepositories
             try
             {
                 if (page < 1 || pageSize < 1)
-                    throw new ArgumentException("Page size and current page must be positive numbers");
+                    throw new ArgumentException("Page size and current page must be numbers greater than 0");
 
                 var paged = await _mainDbContext.Events
                     .Skip((page - 1) * pageSize)

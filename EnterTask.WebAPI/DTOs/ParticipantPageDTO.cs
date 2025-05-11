@@ -2,7 +2,7 @@
 {
     public class ParticipantPageDTO
     {
-        public IEnumerable<ParticipantDTO> Participants { get; set; } = null!;
+        public IEnumerable<ParticipantDTO>? Participants { get; set; } = null!;
 
         public int Page { get; set; }
 

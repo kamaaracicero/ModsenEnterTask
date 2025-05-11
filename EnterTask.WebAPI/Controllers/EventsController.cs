@@ -7,6 +7,7 @@ using EnterTask.Logic.Repositories.PaggingRepositories;
 using EnterTask.Logic.Repositories.Tracking;
 using EnterTask.Logic.Search;
 using EnterTask.WebAPI.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -106,6 +107,7 @@ namespace EnterTask.WebAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("create", Name = "CreateEvent")]
         public async Task<IActionResult> CreateNew([FromBody] EventDTO model)
         {
@@ -128,6 +130,7 @@ namespace EnterTask.WebAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("update", Name = "UpdateEvent")]
         public async Task<IActionResult> Update([FromBody] EventDTO model)
         {
@@ -152,6 +155,7 @@ namespace EnterTask.WebAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("remove/{id}", Name = "RemoveEvent")]
         public async Task<IActionResult> Remove(int id)
         {

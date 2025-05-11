@@ -17,6 +17,7 @@ namespace EnterTask.Logic.Repositories
 
         Task<RepositoryResult> UpdateAsync(TEntity entity);
 
+        // Возможно поправить возвращаемый результат "true, true" "true, false"
         Task<RepositoryResult<TEntity?>> GetByIdAsync(int id);
 
         Task<RepositoryResult<IEnumerable<TEntity>>> PerformSearchAsync<TParam>

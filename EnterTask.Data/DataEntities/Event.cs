@@ -36,6 +36,9 @@
 
         public int MaxPeopleCount { get; set; }
 
+        // Для кеширования нужно определить картинку в отдельную таблицу
+        // Тем более при подтягивании всех событий, если в каждом событии будет картинка
+        // комп взлетит от количества информации
         public string? Picture { get; set; }
 
         public ICollection<Registration> Registrations { get; set; } = [];

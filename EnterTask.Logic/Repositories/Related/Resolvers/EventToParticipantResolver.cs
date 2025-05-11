@@ -41,23 +41,5 @@ namespace EnterTask.Logic.Repositories.Related.Resolvers
                 .Select(r => r.Participant)
                 .ToListAsync();
         }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed) {
-                if (disposing)
-                    _mainDbContext.Dispose();
-
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
     }
 }

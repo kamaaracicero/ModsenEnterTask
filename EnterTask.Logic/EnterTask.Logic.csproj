@@ -11,4 +11,8 @@
     <ProjectReference Include="..\EnterTask.Data\EnterTask.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\Tracking\" />
+  </ItemGroup>
+
 </Project>

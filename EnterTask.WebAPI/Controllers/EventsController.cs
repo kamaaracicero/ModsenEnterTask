@@ -64,5 +64,11 @@ namespace EnterTask.WebAPI.Controllers
         {
             return Ok();
         }
+
+        [HttpPost("getpage", Name = "GetParticipantPage")]
+        public async Task<EventPageDTO> GetPage([FromBody] EventPageDTO model)
+        {
+            return null;
+        }
     }
 }

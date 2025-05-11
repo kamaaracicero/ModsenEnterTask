@@ -40,23 +40,5 @@ namespace EnterTask.Logic.Repositories.Related.Resolvers
             _mainDbContext.Registrations.Remove(search);
             await _mainDbContext.SaveChangesAsync();
         }
-
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed) {
-                if (disposing)
-                    _mainDbContext.Dispose();
-
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
     }
 }

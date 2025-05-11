@@ -4,7 +4,7 @@ using EnterTask.Logic.Search;
 
 namespace EnterTask.Logic.Repositories
 {
-    public interface IRepository<TEntity> : IDisposable
+    public interface IRepository<TEntity>
         where TEntity : class, IDataEntity, new()
     {
         Task<RepositoryResult<IEnumerable<TEntity>>> GetAllAsync();

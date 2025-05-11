@@ -2,7 +2,7 @@
 
 namespace EnterTask.Logic.Repositories.Related.Resolvers
 {
-    public interface IRelatedEntityResolver<TEntity, TRelated> : IDisposable
+    public interface IRelatedEntityResolver<TEntity, TRelated>
         where TEntity : class, IDataEntity, new()
         where TRelated : class, IDataEntity, new()
     {

@@ -36,6 +36,8 @@ namespace EnterTask.DataAccess.EntityConfigurations
             builder.Property(e => e.MaxPeopleCount)
                 .IsRequired();
 
+            builder.ToTable(t => t.HasCheckConstraint("ck_Event_MaxPeopleCount_Positive", "[MaxPeopleCount] >= 0"));
+
             builder.Property(e => e.Picture);
         }
     }

@@ -21,6 +21,7 @@ namespace EnterTask.WebAPI.Validation
 
             RuleFor(e => e.Email)
                 .NotEmpty().WithMessage("Email is required")
+                .EmailAddress().WithMessage("Email must be valid")
                 .MaximumLength(500);
         }
     }

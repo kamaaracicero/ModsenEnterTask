@@ -10,4 +10,6 @@
 	[Picture] NVARCHAR(MAX) NULL,
 
 	CONSTRAINT pk_Event PRIMARY KEY ([Id]),
+
+	CONSTRAINT ck_Event_MaxPeopleCount_Positive CHECK ([MaxPeopleCount] >= 0)
 )

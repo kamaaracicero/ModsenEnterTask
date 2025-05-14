@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Search
 {
-    internal class EventByNameSearch : ISearch<Event, string>
+    internal class EventByNameSearch : IEFSearch<Event, string>
     {
         public async Task<IEnumerable<Event>> SearchAsync(IQueryable<Event> entities, string param)
         {

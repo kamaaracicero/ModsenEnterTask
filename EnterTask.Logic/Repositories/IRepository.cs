@@ -1,26 +1,30 @@
 ﻿using EnterTask.Data.DataEntities;
+using EnterTask.Data.FilterSettings;
 using EnterTask.Data.Repository;
-using EnterTask.Logic.Search;
 
 namespace EnterTask.Logic.Repositories
 {
     public interface IRepository<TEntity>
         where TEntity : class, IDataEntity, new()
     {
-        Task<RepositoryResult<IEnumerable<TEntity>>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync(IFilterSettings<TEntity>? filterSettings = null);
 
-        Task<RepositoryResult<bool>> ContainsAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> GetPage(PageInfo pageInfo);
 
-        Task<RepositoryResult> AddAsync(TEntity entity);
+        Task<bool> ContainsAsync(params object[] keyValues);
 
-        Task<RepositoryResult> RemoveAsync(TEntity entity);
+        Task AddAsync(TEntity entity);
 
-        Task<RepositoryResult> UpdateAsync(TEntity entity);
+        Task<bool> RemoveAsync(TEntity entity);
 
-        // Возможно поправить возвращаемый результат "true, true" "true, false"
-        Task<RepositoryResult<TEntity?>> GetByIdAsync(int id);
+        Task<bool> RemoveByIdAsync(params object[] keyValues);
 
-        Task<RepositoryResult<IEnumerable<TEntity>>> PerformSearchAsync<TParam>
-            (ISearch<TEntity, TParam> search, TParam param);
+        Task<bool> UpdateAsync(TEntity entity);
+
+        Task<bool> UpdateByIdAsync(TEntity update, params object[] keyValues);
+
+        Task<TEntity?> GetByIdAsync(params object[] keyValues);
+
+        Task<TEntity?> FindByIdAsync(params object[] keyValues);
     }
 }

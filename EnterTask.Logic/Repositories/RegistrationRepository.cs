@@ -1,150 +1,71 @@
 ﻿using EnterTask.Data.DataEntities;
-using EnterTask.Data.Exceptions;
+using EnterTask.Data.FilterSettings;
 using EnterTask.Data.Repository;
 using EnterTask.DataAccess.DbContexts;
-using EnterTask.Logic.Search;
-using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories
 {
-    internal class RegistrationRepository : IRepository<Registration>
+    internal class RegistrationRepository : RepositoryBase<Registration>, IRepository<Registration>
     {
-        private readonly MainDbContext _dbContext;
+        public RegistrationRepository(MainDbContext mainDbContext)
+            : base(mainDbContext)
+        { }
 
-        public RegistrationRepository(MainDbContext dbCOntext)
+        public async Task<Registration?> GetByIdAsync(params object[] keyValues)
         {
-            _dbContext = dbCOntext;
+            if (keyValues.Length < 2
+                || keyValues[0] is not int firstKey
+                || keyValues[1] is not int secondKey)
+            {
+                return null;
+            }
+            return await GetByParameterAsync(e => e.ParticipantId == firstKey && e.EventId == secondKey);
         }
 
-        public async Task<RepositoryResult> AddAsync(Registration entity)
-        {
-            try
-            {
-                await _dbContext.Registrations.AddAsync(entity);
-                await _dbContext.SaveChangesAsync();
+        public async Task<IEnumerable<Registration>> GetPage(PageInfo pageInfo)
+            => await base.GetPageAsync(pageInfo);
 
-                return new RepositoryResult(true);
-            }
-            catch (Exception ex)
-            {
-                return new RepositoryResult(false) {
-                    Errors = new List<Exception> { ex }
-                };
-            }
+        public async Task<bool> RemoveAsync(Registration entity)
+        {
+            var res = await base.RemoveAsync(entity.ParticipantId, entity.EventId);
+            await base.SaveChangesAsync();
+            return res;
         }
 
-        public async Task<RepositoryResult<bool>> ContainsAsync(Registration entity)
+        public async Task<bool> RemoveByIdAsync(params object[] keyValues)
         {
-            try
-            {
-                var elem = await _dbContext.Registrations.FirstOrDefaultAsync(r => r.ParticipantId == entity.ParticipantId
-                                                                                && r.EventId == entity.EventId);
-                if (elem != null)
-                    return new RepositoryResult<bool>(true, true);
-                else
-                    return new RepositoryResult<bool>(false, true);
-            }
-            catch (Exception ex)
-            {
-                return new RepositoryResult<bool>(false, false) {
-                    Errors = new List<Exception>() { ex }
-                };
-            }
+            var res = await base.RemoveAsync(keyValues);
+            await base.SaveChangesAsync();
+            return res;
         }
 
-        public async Task<RepositoryResult<IEnumerable<Registration>>> GetAllAsync()
+        public async Task<bool> UpdateAsync(Registration entity)
         {
-            try
-            {
-                var res = await _dbContext.Registrations.ToListAsync();
-                return new RepositoryResult<IEnumerable<Registration>>(res, true);
-            }
-            catch (Exception ex)
-            {
-                return new RepositoryResult<IEnumerable<Registration>>([], false) {
-                    Errors = new List<Exception>() { ex }
-                };
-            }
+            var res = await base.UpdateAsync(entity, entity.ParticipantId, entity.EventId);
+            await base.SaveChangesAsync();
+            return res;
         }
 
-        public async Task<RepositoryResult<Registration?>> GetByIdAsync(int id)
+        public async Task<bool> UpdateByIdAsync(Registration update, params object[] keyValues)
         {
-            return new RepositoryResult<Registration?>(null, false) {
-                Errors = new List<Exception>() {
-                    new RepositoryException(this, "Default search by id is not available for link element!")
-                }
-            };
+            var res = await base.UpdateAsync(update, keyValues);
+            await base.SaveChangesAsync();
+            return res;
         }
 
-        public async Task<RepositoryResult> RemoveAsync(Registration entity)
+        public new async Task AddAsync(Registration entity)
         {
-            try
-            {
-                var elem = await _dbContext.Registrations.FirstOrDefaultAsync(r => r.ParticipantId == entity.ParticipantId
-                                                                                && r.EventId == entity.EventId);
-                if (elem != null) {
-                    _dbContext.Registrations.Remove(elem);
-                    await _dbContext.SaveChangesAsync();
-
-                    return new RepositoryResult(true);
-                }
-                else
-                {
-                    return new RepositoryResult(false) {
-                        Errors = new List<Exception>() {
-                            new RepositoryException(this, $"Link not found!")
-                        }
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new RepositoryResult(false) {
-                    Errors = new List<Exception>() { ex }
-                };
-            }
+            await base.AddAsync(entity);
+            await base.SaveChangesAsync();
         }
 
-        public async Task<RepositoryResult> UpdateAsync(Registration entity)
-        {
-            try
-            {
-                var elem = await _dbContext.Registrations.FirstOrDefaultAsync(r => r.ParticipantId == entity.ParticipantId
-                                                                                && r.EventId == entity.EventId);
-                if (elem != null) {
-                    elem.Update(entity);
-                    await _dbContext.SaveChangesAsync();
-                    return new RepositoryResult(true);
-                }
-                else
-                    return new RepositoryResult(false) {
-                        Errors = new List<Exception> {
-                            new RepositoryException(this, $"Link not found!")
-                        }
-                    };
-            }
-            catch (Exception ex)
-            {
-                return new RepositoryResult<bool>(false, false) {
-                    Errors = new List<Exception>() { ex }
-                };
-            }
-        }
+        public new async Task<bool> ContainsAsync(params object[] keyValues)
+            => await base.ContainsAsync(keyValues);
 
-        public async Task<RepositoryResult<IEnumerable<Registration>>> PerformSearchAsync<TParam>
-            (ISearch<Registration, TParam> search, TParam param)
-        {
-            try
-            {
-                var res = await search.SearchAsync(_dbContext.Registrations, param);
-                return new RepositoryResult<IEnumerable<Registration>>(res, true);
-            }
-            catch (Exception ex)
-            {
-                return new RepositoryResult<IEnumerable<Registration>>([], false) {
-                    Errors = new List<Exception>() { ex }
-                };
-            }
-        }
+        public new async Task<Registration?> FindByIdAsync(params object[] keyValues)
+            => await base.FindByIdAsync(keyValues);
+
+        public new async Task<IEnumerable<Registration>> GetAllAsync(IFilterSettings<Registration>? filterSettings = null)
+            => await base.GetAllAsync(filterSettings);
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace EnterTask.Logic.Filter.Event
+﻿using EnterTask.Data.DataEntities;
+
+namespace EnterTask.Data.FilterSettings
 {
-    internal class EventFilterSettings : IFilterSettings
+    public class EventFilterSettings : IFilterSettings<Event>
     {
         public DateTime? EventStartMin { get; set; }
 

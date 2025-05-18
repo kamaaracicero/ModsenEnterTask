@@ -1,7 +1,7 @@
 
 using EnterTask.DataAccess;
-using EnterTask.Logic;
 using EnterTask.WebAPI.DTOs;
+using EnterTask.WebAPI.ExceptionMiddleware;
 using EnterTask.WebAPI.Mappers;
 using EnterTask.WebAPI.Security;
 using EnterTask.WebAPI.Validation;
@@ -37,7 +37,6 @@ namespace EnterTask.WebAPI
                     };
                 });
 
-            builder.Services.AddLogic(builder.Configuration);
             builder.Services.AddDataAccess(builder.Configuration);
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -79,6 +78,7 @@ namespace EnterTask.WebAPI
             app.UseSwagger();
             app.UseSwaggerUI();
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthentication();

@@ -3,6 +3,7 @@ using EnterTask.Data.Repository;
 
 namespace EnterTask.Logic.Repositories.Related
 {
+    [Obsolete]
     public interface IRelatedRepository<TEntity>
         where TEntity : class, IDataEntity, new()
     {

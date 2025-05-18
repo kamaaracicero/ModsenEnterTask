@@ -1,0 +1,22 @@
+DataAccess
+
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+
+dotnet ef migrations add InitialCreate
+
+dotnet ef database update
+
+AND CREATE DESIGN TIME FACTORY
+internal class MainDbContextFactory : IDesignTimeDbContextFactory<MainDbContext>
+{
+    public MainDbContext CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<MainDbContext>();
+        optionsBuilder.UseSqlServer(
+            "Server=localhost;Database=ModsenEnterTask.Database;User Id=sa;Password=ModsenEnterTask!1;TrustServerCertificate=True;"
+        );
+
+        return new MainDbContext(optionsBuilder.Options);
+    }
+}

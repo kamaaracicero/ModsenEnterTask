@@ -3,6 +3,7 @@ using EnterTask.Data.Repository;
 
 namespace EnterTask.Logic.Repositories.PaggingRepositories
 {
+    [Obsolete]
     // Пагинацию возможно надо было оформить не как репозиторий, а как универсальный класс.
     // Но такой вариант не нагружает оперативку большим количеством элементов из базы данных
     public interface IPaggingRepository<TEntity>

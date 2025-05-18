@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories.PaggingRepositories
 {
+    [Obsolete]
     internal class ParticipantPaggingRepository : IPaggingRepository<Participant>
     {
         private readonly MainDbContext _mainDbContext;

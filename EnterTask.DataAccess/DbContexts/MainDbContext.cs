@@ -19,12 +19,18 @@ namespace EnterTask.DataAccess.DbContexts
 
         public DbSet<Registration> Registrations { get; set; } = null!;
 
+        public DbSet<EventImage> EventImages { get; set; } = null!;
+
+        public DbSet<Person> Persons { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EventConfiguration());
             modelBuilder.ApplyConfiguration(new EventChangeConfiguration());
             modelBuilder.ApplyConfiguration(new ParticipantConfiguration());
             modelBuilder.ApplyConfiguration(new RegistrationConfiguration());
+            modelBuilder.ApplyConfiguration(new EventImageConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 

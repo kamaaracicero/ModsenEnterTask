@@ -2,7 +2,7 @@
 {
     public class Event : IDataEntity
     {
-        private Event(int id, string name, string description, DateTime start, string place, string category, int maxPeopleCount, string? picture)
+        private Event(int id, string name, string description, DateTime start, string place, string category, int maxPeopleCount)
         {
             this.Id = id;
             this.Name = name;
@@ -11,11 +11,10 @@
             this.Place = place;
             this.Category = category;
             this.MaxPeopleCount = maxPeopleCount;
-            this.Picture = picture;
         }
 
         public Event(string name, string description, DateTime start, string place, string category, int maxPeopleCount)
-            : this(0, name, description, start, place, category, maxPeopleCount, null)
+            : this(0, name, description, start, place, category, maxPeopleCount)
         { }
 
         public Event()
@@ -36,14 +35,11 @@
 
         public int MaxPeopleCount { get; set; }
 
-        // Для кеширования нужно определить картинку в отдельную таблицу
-        // Тем более при подтягивании всех событий, если в каждом событии будет картинка
-        // комп взлетит от количества информации
-        public string? Picture { get; set; }
-
         public ICollection<Registration> Registrations { get; set; } = [];
 
         public ICollection<EventChange> Changes { get; set; } = [];
+
+        public ICollection<EventImage> Images { get; set; } = [];
 
         public void Update(object? obj)
         {
@@ -59,18 +55,16 @@
                 this.Place = temp.Place;
                 this.Category = temp.Category;
                 this.MaxPeopleCount = temp.MaxPeopleCount;
-                this.Picture = temp.Picture;
             }
         }
 
         public override int GetHashCode() => Id
-            ^ Name.GetHashCode()
-            ^ Description.GetHashCode()
+            ^ (Name != null ? Name.GetHashCode() : 0)
+            ^ (Description != null ? Description.GetHashCode() : 0)
             ^ Start.GetHashCode()
-            ^ Place.GetHashCode()
-            ^ Category.GetHashCode()
-            ^ MaxPeopleCount
-            ^ (Picture == null ? 0 : Picture.GetHashCode());
+            ^ (Place != null ? Place.GetHashCode() : 0)
+            ^ (Category != null ? Category.GetHashCode() : 0)
+            ^ MaxPeopleCount;
 
         public override bool Equals(object? obj)
         {

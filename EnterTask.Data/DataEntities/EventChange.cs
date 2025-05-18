@@ -53,9 +53,9 @@ namespace EnterTask.Data.DataEntities
         public override int GetHashCode() => Id
             ^ EventId
             ^ Date.GetHashCode()
-            ^ ParamName.GetHashCode()
-            ^ (OldValue == null ? 0 : OldValue.GetHashCode())
-            ^ (NewValue == null ? 0 : NewValue.GetHashCode());
+            ^ (ParamName != null ? ParamName.GetHashCode() : 0)
+            ^ (OldValue != null ? OldValue.GetHashCode() : 0)
+            ^ (NewValue != null ? NewValue.GetHashCode() : 0);
 
         public override bool Equals(object? obj)
         {

@@ -2,6 +2,7 @@
 
 namespace EnterTask.Logic.Repositories.Tracking
 {
+    [Obsolete]
     public interface ITrackingRepository<TEntity, TTrackingEntity>
     {
         Task<RepositoryResult> TrackChanges(TEntity entity);

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories.Tracking
 {
+    [Obsolete]
     internal class EventChangeTrackingRepository : ITrackingRepository<Event, EventChange>
     {
         private readonly MainDbContext _mainDbContext;

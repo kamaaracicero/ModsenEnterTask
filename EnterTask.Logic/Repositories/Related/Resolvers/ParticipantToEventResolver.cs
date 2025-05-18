@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories.Related.Resolvers
 {
+    [Obsolete]
     internal class ParticipantToEventResolver : IRelatedEntityResolver<Participant, Event>
     {
         private readonly MainDbContext _mainDbContext;
@@ -32,7 +33,7 @@ namespace EnterTask.Logic.Repositories.Related.Resolvers
         public async Task RemoveRelatedAsync(Participant entity, Event related)
         {
             var search = await _mainDbContext.Registrations.FirstOrDefaultAsync(r => r.EventId == related.Id
-                                                                                && r.ParticipantId == entity.Id);
+                                                                                  && r.ParticipantId == entity.Id);
 
             if (search == null)
                 throw new ArgumentException("Element to delete not found!");

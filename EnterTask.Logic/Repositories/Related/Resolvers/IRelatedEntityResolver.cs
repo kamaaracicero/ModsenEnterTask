@@ -2,6 +2,7 @@
 
 namespace EnterTask.Logic.Repositories.Related.Resolvers
 {
+    [Obsolete]
     public interface IRelatedEntityResolver<TEntity, TRelated>
         where TEntity : class, IDataEntity, new()
         where TRelated : class, IDataEntity, new()

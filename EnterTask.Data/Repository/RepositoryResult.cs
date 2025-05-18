@@ -1,5 +1,6 @@
 ﻿namespace EnterTask.Data.Repository
 {
+    [Obsolete]
     public class RepositoryResult
     {
         public List<Exception> Errors { get; set; }
@@ -13,6 +14,7 @@
         }
     }
 
+    [Obsolete]
     public class RepositoryResult<TValue> : RepositoryResult
     {
         public TValue Value { get; set; }

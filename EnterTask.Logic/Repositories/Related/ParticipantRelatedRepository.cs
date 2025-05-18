@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EnterTask.Logic.Repositories.Related
 {
+    [Obsolete]
     internal class ParticipantRelatedRepository : IRelatedRepository<Participant>
     {
         private readonly IServiceProvider _provider;

@@ -5,22 +5,23 @@
         private Person(int id, int participantId, string login, string password, string role)
         {
             this.Id = id;
+            this.ParticipantId = participantId;
             this.Login = login;
             this.Password = password;
             this.Role = role;
         }
 
-        public Person(string login, string password, string role)
+        public Person(int participantId, string login, string password, string role)
             : this(0, 0, login, password, role)
         { }
 
         public Person()
-            : this(string.Empty, string.Empty, string.Empty)
+            : this(0, string.Empty, string.Empty, string.Empty)
         { }
 
         public int Id { get; set; }
 
-        public int? ParticipantId { get; set; }
+        public int ParticipantId { get; set; }
 
         public string Login { get; set; }
 
@@ -28,19 +29,20 @@
 
         public string Role { get; set; }
 
+        public Participant Participant { get; set; } = null!;
+
         public void Update(object? obj)
         {
             if (obj is not Person temp)
                 return;
 
-            this.ParticipantId = temp.Id;
             this.Login = temp.Login;
             this.Password = temp.Password;
             this.Role = temp.Role;
         }
 
         public override int GetHashCode() => Id
-            ^ (ParticipantId.HasValue ? ParticipantId.Value : 0)
+            ^ ParticipantId
             ^ (Login != null ? Login.GetHashCode() : 0)
             ^ (Password != null ? Password.GetHashCode() : 0)
             ^ (Role != null ? Role.GetHashCode() : 0);

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories.Related.Resolvers
 {
+    [Obsolete]
     internal class EventToEventChangeResolver : IRelatedEntityResolver<Event, EventChange>
     {
         private readonly MainDbContext _mainDbContext;

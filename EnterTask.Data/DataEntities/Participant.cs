@@ -31,6 +31,8 @@
 
         public ICollection<Registration> Registrations { get; set; } = [];
 
+        public Person Person { get; set; } = null!;
+
         public void Update(object? obj)
         {
             if (obj is null or not Participant)
@@ -47,10 +49,10 @@
         }
 
         public override int GetHashCode() => Id
-            ^ Name.GetHashCode()
-            ^ Surname.GetHashCode()
+            ^ (Name != null ? Name.GetHashCode() : 0)
+            ^ (Surname != null ? Surname.GetHashCode() : 0)
             ^ DateOfBirth.GetHashCode()
-            ^ Email.GetHashCode();
+            ^ (Email != null ? Email.GetHashCode() : 0);
 
         public override bool Equals(object? obj)
         {

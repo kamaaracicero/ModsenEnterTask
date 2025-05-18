@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EnterTask.Data.DataEntities;
-using EnterTask.Logic.Filter.Event;
+using EnterTask.Data.FilterSettings;
 using EnterTask.WebAPI.DTOs;
 
 namespace EnterTask.WebAPI.Mappers

@@ -7,7 +7,6 @@
 	[Place] NVARCHAR(150) NOT NULL,
 	[Category] NVARCHAR(100) NOT NULL,
 	[MaxPeopleCount] INT NOT NULL,
-	[Picture] NVARCHAR(MAX) NULL,
 
 	CONSTRAINT pk_Event PRIMARY KEY ([Id]),
 

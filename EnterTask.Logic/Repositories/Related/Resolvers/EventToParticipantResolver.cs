@@ -1,10 +1,10 @@
 ﻿using EnterTask.Data.DataEntities;
 using EnterTask.DataAccess.DbContexts;
-using EnterTask.Logic.Search;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnterTask.Logic.Repositories.Related.Resolvers
 {
+    [Obsolete]
     internal class EventToParticipantResolver : IRelatedEntityResolver<Event, Participant>
     {
         private readonly MainDbContext _mainDbContext;

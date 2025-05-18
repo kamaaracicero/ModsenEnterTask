@@ -1,5 +1,6 @@
 ﻿namespace EnterTask.Data.Exceptions
 {
+    [Obsolete]
     public class RepositoryException : Exception
     {
         public object? Repository { get; }

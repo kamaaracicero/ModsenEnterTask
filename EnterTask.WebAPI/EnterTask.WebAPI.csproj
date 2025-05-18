@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EnterTask.Application\EnterTask.Application.csproj" />
     <ProjectReference Include="..\EnterTask.DataAccess\EnterTask.DataAccess.csproj" />
     <ProjectReference Include="..\EnterTask.Data\EnterTask.Data.csproj" />
-    <ProjectReference Include="..\EnterTask.Logic\EnterTask.Logic.csproj" />
   </ItemGroup>
 
 </Project>

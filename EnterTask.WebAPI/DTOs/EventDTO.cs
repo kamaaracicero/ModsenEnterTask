@@ -15,7 +15,5 @@
         public string Category { get; set; } = null!;
 
         public int MaxPeopleCount { get; set; } = 0;
-
-        public string? Picture { get; set; } = null;
     }
 }

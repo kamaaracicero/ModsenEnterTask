@@ -43,12 +43,12 @@
 
         public void Update(object? obj)
         {
-            if (obj is null or not Event)
+            if (obj is null or not Event) {
                 return;
+            }
 
             var temp = obj as Event;
-            if (temp != null)
-            {
+            if (temp != null) {
                 this.Name = temp.Name;
                 this.Description = temp.Description;
                 this.Start = temp.Start;
@@ -68,8 +68,9 @@
 
         public override bool Equals(object? obj)
         {
-            if (obj is null or not Event)
+            if (obj is null or not Event) {
                 return false;
+            }
 
             return this.GetHashCode() == obj.GetHashCode();
         }

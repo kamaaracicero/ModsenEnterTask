@@ -15,8 +15,7 @@ namespace EnterTask.DataAccess.Repositories
 
         public async Task<EventImage?> GetByIdAsync(params object[] keyValues)
         {
-            if (keyValues.Length == 0 || keyValues[0] is not int key)
-            {
+            if (keyValues.Length == 0 || keyValues[0] is not int key) {
                 return null;
             }
             return await GetByParameterAsync(e => e.Id == key);

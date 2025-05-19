@@ -30,13 +30,14 @@ namespace EnterTask.WebAPI.ExceptionMiddleware
                     NotFoundWithIdException => StatusCodes.Status404NotFound,
                     NotFoundWithParamException => StatusCodes.Status404NotFound,
                     LinkNotFoundException => StatusCodes.Status400BadRequest,
+                    LoginAlreadyExistsException => StatusCodes.Status400BadRequest,
+                    LoginAttemptFailedException => StatusCodes.Status401Unauthorized,
                     _ => StatusCodes.Status500InternalServerError
                 };
 
                 context.Response.ContentType = "application/json";
 
-                var response = new
-                {
+                var response = new {
                     error = "An error occurred",
                     message = ex.Message,
                     exceptionType = ex.GetType().Name,

@@ -33,8 +33,9 @@
 
         public void Update(object? obj)
         {
-            if (obj is not Person temp)
+            if (obj is not Person temp) {
                 return;
+            }
 
             this.Login = temp.Login;
             this.Password = temp.Password;
@@ -49,8 +50,9 @@
 
         public override bool Equals(object? obj)
         {
-            if (obj is null or not Person)
+            if (obj is null or not Person) {
                 return false;
+            }
 
             return this.GetHashCode() == obj.GetHashCode();
         }

@@ -6,16 +6,13 @@ namespace EnterTask.Application.Infrastructure.Comparers
     {
         public int Compare(Event? x, Event? y)
         {
-            if (ReferenceEquals(x, y))
-            {
+            if (ReferenceEquals(x, y)) {
                 return 0;
             }
-            if (x is null)
-            {
+            if (x is null) {
                 return 1;
             }
-            if (y is null)
-            {
+            if (y is null) {
                 return -1;
             }
 

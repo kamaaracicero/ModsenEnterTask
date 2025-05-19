@@ -1,11 +1,11 @@
 ﻿using EnterTask.Data.DataEntities;
 using EnterTask.DataAccess.DbContexts;
-using EnterTask.Logic.Repositories;
+using EnterTask.DataAccess.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace EnterTask.UnitTests.Models
+namespace EnterTask.UnitTests.Repositories
 {
     public class EventRepositoryTests
     {
@@ -25,10 +25,9 @@ namespace EnterTask.UnitTests.Models
             var @event = new Event("test1", "description1", DateTime.Now.AddYears(1), "Some Place", "Category", 1000);
 
             // Act
-            var result = await repository.AddAsync(@event);
+            await repository.AddAsync(@event);
 
             // Assert
-            result.Successfully.Should().BeTrue();
             context.Events.Should().ContainSingle(e => e.Name == "test1");
         }
 
@@ -48,9 +47,8 @@ namespace EnterTask.UnitTests.Models
             var result = await repository.GetByIdAsync(1);
 
             // Assert
-            result.Successfully.Should().BeTrue();
-            result.Value.Should().NotBeNull();
-            result.Value!.Name.Should().Be("Some Event");
+            result.Should().NotBeNull();
+            result!.Name.Should().Be("Some Event");
         }
     }
 }

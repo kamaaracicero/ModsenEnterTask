@@ -44,12 +44,14 @@ namespace EnterTask.Application.Services
         {
             var @event = await _eventRepository.GetByIdAsync(eventId);
             if (@event != null) {
-                var changes = ObjectComparer<Event>.Compare(@event, update);
-                foreach (var change in changes)
-                {
-                    var entity = _converter.Convert(change);
-                    entity.EventId = eventId;
-                    entity.Date = DateTime.UtcNow;
+                // Записывает также Registrations, Changes, Images
+                // var changes = ObjectComparerWithoutCollections<Event>.Compare(@event, update);
+                var changes = Compare(@event, update);
+                // foreach (var change in changes)
+                foreach (var entity in changes) {
+                    // var entity = _converter.Convert(change);
+                    // entity.EventId = eventId;
+                    // entity.Date = DateTime.UtcNow;
 
                     await _eventChangeRepository.AddAsync(entity);
                 }
@@ -59,6 +61,42 @@ namespace EnterTask.Application.Services
             else {
                 throw new LinkNotFoundException(nameof(Event), nameof(EventChange), eventId);
             }
+        }
+
+        private IEnumerable<EventChange> Compare(Event old, Event @new)
+        {
+            List<EventChange> changes = new List<EventChange>();
+            if (!Equals(old.Name, @new.Name)) {
+                changes.Add(new EventChange(@new.Id, DateTime.UtcNow,
+                    nameof(old.Name), old.Name, @new.Name));
+            }
+
+            if (!Equals(old.Description, @new.Description)) {
+                changes.Add(new EventChange(@new.Id, DateTime.UtcNow,
+                    nameof(old.Description), old.Description, @new.Description));
+            }
+
+            if (!Equals(old.Start, @new.Start)) {
+                changes.Add(new EventChange(@new.Id, DateTime.UtcNow,
+                    nameof(old.Start), old.Start.ToString(), @new.Start.ToString()));
+            }
+
+            if (!Equals(old.Place, @new.Place)) {
+                changes.Add(new EventChange(@new.Id, DateTime.UtcNow,
+                    nameof(old.Place), old.Place, @new.Place));
+            }
+
+            if (!Equals(old.Category, @new.Category)) {
+                changes.Add(new EventChange(@new.Id, DateTime.UtcNow,
+                    nameof(old.Category), old.Category, @new.Category));
+            }
+
+            if (!Equals(old.MaxPeopleCount, @new.MaxPeopleCount)) {
+                changes.Add(new EventChange(@new.Id, DateTime.UtcNow,
+                    nameof(old.MaxPeopleCount), old.MaxPeopleCount.ToString(), @new.MaxPeopleCount.ToString()));
+            }
+
+            return changes;
         }
     }
 }

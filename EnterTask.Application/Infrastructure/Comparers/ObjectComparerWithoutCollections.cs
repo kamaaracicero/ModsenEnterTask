@@ -2,7 +2,7 @@
 
 namespace EnterTask.Application.Infrastructure.Comparers
 {
-    public static class ObjectComparer<TValue>
+    public static class ObjectComparerWithoutCollections<TValue>
         where TValue : class
     {
         public static List<PropertyChange> Compare(TValue oldObj, TValue newObj)
@@ -14,7 +14,8 @@ namespace EnterTask.Application.Infrastructure.Comparers
             var props = typeof(TValue).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var prop in props) {
-                if (!prop.CanRead || prop.GetIndexParameters().Length > 0) {
+                if (!prop.CanRead
+                    || prop.GetIndexParameters().Length > 0) {
                     continue;
                 }
 

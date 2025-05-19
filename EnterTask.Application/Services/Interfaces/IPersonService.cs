@@ -9,7 +9,7 @@ namespace EnterTask.Application.Services.Interfaces
 
         Task<ServiceResult> DeleteLoginAsync(int participantId);
 
-        Task<ServiceResult> CheckLoginAsync(string login, string password);
+        Task<ServiceResult<Person>> EnsureLoginAsync(string login, string password);
 
         Task<ServiceResult<Person>> GetByIdAsync(int participantId);
     }

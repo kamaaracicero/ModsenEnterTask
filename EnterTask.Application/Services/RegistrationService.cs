@@ -68,7 +68,6 @@ namespace EnterTask.Application.Services
             else {
                 throw new LinkNotFoundException(nameof(Event), nameof(Registration), eventId);
             }
-            
         }
 
         public async Task<ServiceResult> RemoveRegistrationAsync(int participantId, int eventId)

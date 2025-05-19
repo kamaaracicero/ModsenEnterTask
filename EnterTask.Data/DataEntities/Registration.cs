@@ -25,8 +25,9 @@
 
         public void Update(object? obj)
         {
-            if (obj is null or not Registration)
+            if (obj is null or not Registration) {
                 return;
+            }
 
             var temp = obj as Registration;
             if (temp != null)
@@ -39,8 +40,9 @@
 
         public override bool Equals(object? obj)
         {
-            if (obj is null or not Registration)
+            if (obj is null or not Registration) {
                 return false;
+            }
 
             return this.GetHashCode() == obj.GetHashCode();
         }

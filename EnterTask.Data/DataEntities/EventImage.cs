@@ -16,6 +16,7 @@
         {
             Id = id;
             EventId = eventId;
+            Number = number;
             Data = data;
         }
 

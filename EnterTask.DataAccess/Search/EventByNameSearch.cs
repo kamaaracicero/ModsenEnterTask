@@ -8,8 +8,9 @@ namespace EnterTask.DataAccess.Search
         public async Task<IEnumerable<Event>> SearchAsync(IQueryable<Event> entities, string param)
         {
             var normalizedParam = param.ToLower().Trim();
-            if (string.IsNullOrEmpty(normalizedParam))
+            if (string.IsNullOrEmpty(normalizedParam)) {
                 return [];
+            }
 
             var res = await entities
                 .AsNoTracking()

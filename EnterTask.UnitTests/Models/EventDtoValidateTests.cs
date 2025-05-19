@@ -4,7 +4,7 @@ using FluentValidation.TestHelper;
 
 namespace EnterTask.UnitTests.Models
 {
-    public class EventDtoValidateTests
+    public class EventDTOValidateTests
     {
         private readonly EventDTOValidator _validator = new EventDTOValidator();
 

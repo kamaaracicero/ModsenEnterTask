@@ -18,8 +18,7 @@ namespace EnterTask.DataAccess.Repositories
 
         public async Task<Event?> GetByIdAsync(params object[] keyValues)
         {
-            if (keyValues.Length == 0 || keyValues[0] is not int key)
-            {
+            if (keyValues.Length == 0 || keyValues[0] is not int key) {
                 return null;
             }
             return await GetByParameterAsync(e => e.Id == key);
@@ -80,17 +79,18 @@ namespace EnterTask.DataAccess.Repositories
                 return query;
             }
 
-            if (filter.EventStartMin.HasValue)
+            if (filter.EventStartMin.HasValue) {
                 query = query.Where(e => e.Start >= filter.EventStartMin.Value);
-
-            if (filter.EventStartMax.HasValue)
+            }
+            if (filter.EventStartMax.HasValue) {
                 query = query.Where(e => e.Start <= filter.EventStartMax.Value);
-
-            if (!string.IsNullOrEmpty(filter.Place))
+            }
+            if (!string.IsNullOrEmpty(filter.Place)) {
                 query = query.Where(e => e.Place.StartsWith(filter.Place));
-
-            if (!string.IsNullOrEmpty(filter.Category))
+            }
+            if (!string.IsNullOrEmpty(filter.Category)) {
                 query = query.Where(e => e.Category.StartsWith(filter.Category));
+            }
 
             return query;
         }

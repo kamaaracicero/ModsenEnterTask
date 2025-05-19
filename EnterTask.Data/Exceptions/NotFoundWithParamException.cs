@@ -9,6 +9,5 @@
         {
             SearchParam = searchParam;
         }
-
     }
 }

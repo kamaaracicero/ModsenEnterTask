@@ -15,8 +15,7 @@ namespace EnterTask.DataAccess.Repositories
 
         public async Task<Person?> GetByIdAsync(params object[] keyValues)
         {
-            if (keyValues.Length == 0 || keyValues[0] is not int key)
-            {
+            if (keyValues.Length == 0 || keyValues[0] is not int key) {
                 return null;
             }
             return await GetByParameterAsync(e => e.Id == key);
@@ -26,8 +25,7 @@ namespace EnterTask.DataAccess.Repositories
         {
             List<Person> result = new List<Person>();
 
-            foreach (var key in keyValues)
-            {
+            foreach (var key in keyValues) {
                 if (key is not int id) {
                     continue;
                 }

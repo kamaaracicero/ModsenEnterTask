@@ -1,10 +1,10 @@
 ﻿using EnterTask.Data.DataEntities;
 using EnterTask.DataAccess.DbContexts;
-using EnterTask.Logic.Repositories;
+using EnterTask.DataAccess.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnterTask.UnitTests.Models
+namespace EnterTask.UnitTests.Repositories
 {
     public class RegistrationRepositoryTests
     {
@@ -24,10 +24,9 @@ namespace EnterTask.UnitTests.Models
             var registration = new Registration(1, 1, DateOnly.FromDateTime(DateTime.Now));
 
             // Act
-            var result = await repository.AddAsync(registration);
+            await repository.AddAsync(registration);
 
             // Assert
-            result.Successfully.Should().BeTrue();
             context.Registrations.Should().ContainSingle(e => e.EventId == 1 && e.ParticipantId == 1);
         }
 
@@ -47,9 +46,8 @@ namespace EnterTask.UnitTests.Models
             var result = await repository.GetAllAsync();
 
             // Assert
-            result.Successfully.Should().BeTrue();
-            result.Value.Should().NotBeNull();
-            result.Value!.Count().Should().Be(1);
+            result.Should().NotBeNull();
+            result!.Count().Should().Be(1);
         }
     }
 }

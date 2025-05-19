@@ -1,4 +1,8 @@
-﻿using EnterTask.Data.DataEntities;
+﻿using AutoMapper;
+using EnterTask.Application.Services.Interfaces;
+using EnterTask.Data.DataEntities;
+using EnterTask.Data.Services;
+using EnterTask.WebAPI.DTOs;
 using EnterTask.WebAPI.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,31 +15,27 @@ namespace EnterTask.WebAPI.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        // Костыли
-        private List<Person> People = new List<Person>()
-        {
-            new Person() { Id = 1, Login = "sa", Password = "1111", Role = "admin" },
-            new Person() { Id = 2, Login = "user", Password = "2222", Role = "user" },
-        };
+        private readonly IPersonService _personService;
+        private readonly ILogger<TokenController> _logger;
+        private readonly IMapper _mapper;
 
-        [HttpPost("token", Name = "GetToken")]
-        public IActionResult Token(string username, string password)
+        public TokenController(IPersonService personService,
+            ILogger<TokenController> logger,
+            IMapper mapper)
         {
-            var identity = GetIdentity(username, password);
-            if (identity == null)
-                return BadRequest("Invalid username or password.");
+            _personService = personService;
+            _logger = logger;
+            _mapper = mapper;
+        }
 
-            var now = DateTime.UtcNow;
-            var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                notBefore: now,
-                claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(
-                    AuthOptions.GetSymmetricSecurityKey(),
-                    SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+        [HttpPost("get", Name = "GetToken")]
+        public async Task<IActionResult> Token([FromBody] LoginDTO model)
+        {
+            var res = await _personService.EnsureLoginAsync(model.Login, model.Password);
+            _logger.LogInformation(res.Message);
+
+            var identity = GetIdentity(res.Value!);
+            var encodedJwt = GetEncodedJwtToken(identity);
 
             var response = new {
                 access_token = encodedJwt,
@@ -45,24 +45,69 @@ namespace EnterTask.WebAPI.Controllers
             return Ok(response);
         }
 
-        private ClaimsIdentity? GetIdentity(string username, string password)
+        [HttpPost("create/admin", Name = "CreateAdmin")]
+        public async Task<IActionResult> CreateAdmin([FromBody] PersonDTO model)
         {
-            var person = People.FirstOrDefault(x => x.Login == username && x.Password == password);
-            if (person != null)
-            {
-                var claims = new List<Claim>
+            var entity = _mapper.Map<Person>(model);
+            entity.Role = "admin";
+
+            var res = await _personService.AddLoginToParticipantAsync(entity.ParticipantId, entity);
+            _logger.LogInformation(res.Message);
+
+            return Ok();
+        }
+
+        [HttpPost("create", Name = "CreateUser")]
+        public async Task<IActionResult> CreateUser([FromBody] PersonDTO model)
+        {
+            var entity = _mapper.Map<Person>(model);
+            entity.Role = "user";
+
+            var res = await _personService.AddLoginToParticipantAsync(entity.ParticipantId, entity);
+            _logger.LogInformation(res.Message);
+
+            return Ok();
+        }
+
+        [HttpDelete("delete/{participantId}", Name = "DeletePerson")]
+        public async Task<IActionResult> Remove(int participantId)
+        {
+            var res = await _personService.DeleteLoginAsync(participantId);
+
+            _logger.LogInformation(res.Message);
+            return Ok();
+        }
+
+        private ClaimsIdentity GetIdentity(Person person)
+        {
+            var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role),
+                    new Claim("custom_claim", "true"),
                 };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
-                    "Token",
-                    ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
+                "Token",
+                ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+            return claimsIdentity;
+        }
 
-            return null;
+        private string? GetEncodedJwtToken(ClaimsIdentity identity)
+        {
+            var now = DateTime.UtcNow;
+            var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                notBefore: now,
+                claims: identity.Claims,
+                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                signingCredentials: new SigningCredentials(
+                    AuthOptions.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256)
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }
 }

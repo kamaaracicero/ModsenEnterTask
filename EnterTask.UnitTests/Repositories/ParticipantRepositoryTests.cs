@@ -1,10 +1,10 @@
 ﻿using EnterTask.Data.DataEntities;
 using EnterTask.DataAccess.DbContexts;
-using EnterTask.Logic.Repositories;
+using EnterTask.DataAccess.Repositories;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnterTask.UnitTests.Models
+namespace EnterTask.UnitTests.Repositories
 {
     public class ParticipantRepositoryTests
     {
@@ -25,10 +25,9 @@ namespace EnterTask.UnitTests.Models
                 DateOnly.FromDateTime(DateTime.Now.AddYears(-25)), "some@email.com");
 
             // Act
-            var result = await repository.AddAsync(participant);
+            await repository.AddAsync(participant);
 
             // Assert
-            result.Successfully.Should().BeTrue();
             context.Participants.Should().ContainSingle(e => e.Name == "some");
         }
 
@@ -48,9 +47,8 @@ namespace EnterTask.UnitTests.Models
             var result = await repository.GetByIdAsync(1);
 
             // Assert
-            result.Successfully.Should().BeTrue();
-            result.Value.Should().NotBeNull();
-            result.Value!.Name.Should().Be("Some Name");
+            result.Should().NotBeNull();
+            result!.Name.Should().Be("Some Name");
         }
     }
 }

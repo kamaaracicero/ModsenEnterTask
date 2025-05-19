@@ -24,6 +24,11 @@ namespace EnterTask.Application.Services
 
         public async Task<ServiceResult> AddLoginToParticipantAsync(int participantId, Person person)
         {
+            var search = await _personRepository.GetByParameterAsync(p => p.Login == person.Login);
+            if (search != null) {
+                throw new LoginAlreadyExistsException(person.Login);
+            }
+
             var res = await _participantRepository.GetByIdAsync(participantId);
 
             if (res != null) {
@@ -37,21 +42,17 @@ namespace EnterTask.Application.Services
             }
         }
 
-        public async Task<ServiceResult> CheckLoginAsync(string login, string password)
+        public async Task<ServiceResult<Person>> EnsureLoginAsync(string login, string password)
         {
             var check = await _personRepository.GetByParameterAsync(p => p.Login == login);
             if (check != null) {
                 var res = _passwordHasher.VerifyPassword(password, check.Password);
                 if (res) {
-                    return ServiceResult.Ok("All good.");
-                }
-                else {
-                    return ServiceResult.Fail("Password is wrong");
+                    return ServiceResult<Person>.Ok(check, "All good.");
                 }
             }
-            else {
-                return ServiceResult.Fail("Login not found!");
-            }
+
+            throw new LoginAttemptFailedException();
         }
 
         public async Task<ServiceResult> DeleteLoginAsync(int participantId)

@@ -2,8 +2,10 @@
 {
     public class EventImageDTO
     {
-        public int Id { get; set; } = 0;
+        public int EventId { get; set; } = 0;
 
-        public string Image { get; set; } = null!;
+        public int Number { get; set; } = 0;
+
+        public byte[] Data { get; set; } = null!;
     }
 }

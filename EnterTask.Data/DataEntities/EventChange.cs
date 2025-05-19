@@ -38,8 +38,9 @@ namespace EnterTask.Data.DataEntities
 
         public void Update(object? obj)
         {
-            if (obj is null or not EventChange)
+            if (obj is null or not EventChange) {
                 return;
+            }
 
             var temp = obj as EventChange;
             if (temp != null) {
@@ -59,8 +60,9 @@ namespace EnterTask.Data.DataEntities
 
         public override bool Equals(object? obj)
         {
-            if (obj is null or not EventChange)
+            if (obj is null or not EventChange) {
                 return false;
+            }
 
             return this.GetHashCode() == obj.GetHashCode();
         }
